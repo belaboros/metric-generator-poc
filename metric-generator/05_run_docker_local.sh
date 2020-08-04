@@ -1,0 +1,1 @@
+docker run -p 18080:18080  --env speed=5 belaboros/metric-generator

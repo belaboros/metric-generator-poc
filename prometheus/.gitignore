@@ -1,0 +1,4 @@
+*.gz
+prometheus
+prometheus-*
+data

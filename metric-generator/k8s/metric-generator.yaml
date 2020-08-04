@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metric-generator
+  labels:
+    app: metric-generator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: metric-generator
+  template:
+    metadata:
+      labels:
+        app: metric-generator
+    spec:
+      containers:
+      - name: metric-generator
+        image: belaboros/metric-generator
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "150m"
+          limits:
+            memory: "20Mi"
+            cpu: "150m"
+        env:
+        - name: speed
+          value: "4"
+
+
+# 10 log records/sec/POD
+#        - name: SLEEP_SEC
+#          value: "0.12"
+
+# 43 log records/sec/POD
+#        - name: SLEEP_SEC
+#          value: "0.02"
+
+
+# NOTES:
+# 150milli CPU cores was enough to generate
+#    ~43 log records/sec/POD
+#    ~2500 log records/min/POD
+# on messaging-acc/octopus cluster
