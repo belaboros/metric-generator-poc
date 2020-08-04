@@ -7,12 +7,13 @@ rm *.log
 
 
 PODS=$(kubectl get pods -o custom-columns=POD_NAME:.metadata.name | grep metric-generator)
-#echo -e "metric-generator PODs:\n${PODS}"
+echo -e "metric-generator PODs:\n${PODS}"
 
 for POD in ${PODS}; do
     echo -e "\n\nPOD:${POD}" | tee -a metric-generator-PODs.log
     echo "$(kubectl get pods | grep ${POD})" | tee -a metric-generator-PODs.log
     echo -e "..." | tee -a metric-generator-PODs.log
-    kubectl logs --tail=5 ${POD} | tee -a metric-generator-PODs.log
+    kubectl logs --tail=10 ${POD} | tee -a metric-generator-PODs.log
+    kubectl logs ${POD} | tee -a metric-generator-${POD}.log
 done
 
