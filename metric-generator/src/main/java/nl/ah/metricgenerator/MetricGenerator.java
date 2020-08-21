@@ -48,9 +48,7 @@ public class MetricGenerator {
     @Scheduled(fixedDelay = 1000)
     public void generateMetric() {
         if (first_call) {
-            System.out.println("speed=" + speed);
-            System.out.println("Generating speed=" + speed + " metrics/sec.");
-            first_call = false;
+            setParameters();
         }
 
         for (int i=0; i<speed; i++) {
@@ -67,6 +65,12 @@ public class MetricGenerator {
 
             System.out.println(count + ". metric incremented: {" + source_db + " ; " + contract_id + " ; " + creation_datetime + "}");
         }
+    }
+
+    private void setParameters() {
+        System.out.println("speed=" + speed);
+        System.out.println("Generating speed=" + speed + " metrics/sec.");
+        first_call = false;
     }
 
     private static String getRandom(String[] list) {
